@@ -508,7 +508,48 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		    const yearSelect = document.getElementById('filterYear');
+		    const monthSelect = document.getElementById('filterMonth');
+		    const categorySelect = document.getElementById('filterCategory');
+		    const items = document.querySelectorAll('.data-item');
+		
+		    function filterContent() {
+		        const selectedYear = yearSelect.value;
+		        const selectedMonth = monthSelect.value;
+		        const selectedCat = categorySelect.value;
+		
+		        items.forEach(item => {
+		            const isYear = item.getAttribute('data-year') === selectedYear;
+		            const isMonth = item.getAttribute('data-month') === selectedMonth;
+		            const isCat = item.getAttribute('data-category') === selectedCat;
+		
+		            if (isYear && isMonth && isCat) {
+		                item.style.display = "block";
+		            } else {
+		                item.style.display = "none";
+		            }
+		        });
+		    }
+		
+		    // Escuchar cambios en los combos
+		    yearSelect.addEventListener('change', filterContent);
+		    monthSelect.addEventListener('change', filterContent);
+		    categorySelect.addEventListener('change', filterContent);
+		
+		    // Función para el menú lateral
+		    window.setCategory = function(cat) {
+		        categorySelect.value = cat;
+		        filterContent();
+		    }
+		
+		    // Ejecutar filtro inicial
+		    filterContent();
+		});
+	</script>
+	
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
